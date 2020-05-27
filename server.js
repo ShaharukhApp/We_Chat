@@ -1,8 +1,7 @@
-const io=require('socket.io')(8080)
-var express=require('express');
-var app=express();
 
-const PORT = process.env.PORT || 5000
+var app=require('express')()
+var http=require('http').createServer(app)
+var io=require('socket.io')(http)
 
 const users={}
 
@@ -20,8 +19,9 @@ io.on('connection',socket=>{
     })
 
 })
-app.get('/',(req,res)=>{
-    res.send('welcome to the world of We Chat');
-    
+
+app.get('/', (req, res) => {
+    res.send("Node Server is running. Yay!!")
 })
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+http.listen(process.env.PORT || 5000);
